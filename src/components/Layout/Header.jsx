@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Logo from "../../assets/logo/logo.svg";
 import "./Header.css";
 
@@ -8,6 +8,8 @@ function getLinkStyle({ isActive }) { //get함수는 NavLink와 같이 쓰는 �
 }//아래 자유게시판,중고마켓의 스타일을 isActive의 true,false값으로 활성,비활성화하는 함수
 
 function Header() {
+	const location = useLocation();
+
 	return (
 		<header className="globalHeader">
 			<div className="headerLeft">
@@ -24,7 +26,14 @@ function Header() {
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="/items" style={getLinkStyle}>
+							<NavLink 
+								to="/items" 
+								style={({ isActive }) =>
+									location.pathname === "/additem" || isActive
+										? { color: "var(--blue-100)" }
+										: {}	
+								}
+							>
 								중고마켓
 							</NavLink>
 						</li>
